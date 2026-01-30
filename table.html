@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mālama Labs — Tech That Will Save the World</title>
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://malama-climate-tech.vercel.app/">
+    <meta property="og:title" content="Build Your Own Climate Startup | Mālama Labs">
+    <meta property="og:description"
+        content="Explore 90 climate technologies with AI-powered insights. From lab breakthroughs to commercial deployment across energy, carbon removal, and more.">
+    <meta property="og:image" content="https://malama-climate-tech.vercel.app/og_image.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@malamalabs">
+    <meta name="twitter:title" content="Build Your Own Climate Startup | Mālama Labs">
+    <meta name="twitter:description"
+        content="Explore 90 climate technologies with AI-powered insights. From lab breakthroughs to commercial deployment.">
+    <meta name="twitter:image" content="https://malama-climate-tech.vercel.app/og_image.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -1138,21 +1155,34 @@
             }
 
             // Social Sharing Functions
+            function stripMarkdown(text) {
+                return text
+                    .replace(/\*\*(.*?)\*\*/g, '$1')  // Remove bold
+                    .replace(/\*(.*?)\*/g, '$1')      // Remove italic
+                    .replace(/\n\n/g, '\n')           // Reduce double line breaks
+                    .trim();
+            }
+
             function shareToTwitter(text, categoryName) {
-                const url = window.location.href;
-                const tweetText = `${text}\n\nExplore ${categoryName} and 89 other climate technologies at Mālama Labs Climate Tech Index 🌍\n\n@malamalabs`;
-                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(url)}`;
+                const cleanText = stripMarkdown(text);
+                const url = 'https://malama-climate-tech.vercel.app/';
+                const tweetText = `${cleanText}\n\nBuild Your Own Climate Startup at ${url}\n\n@malamalabs`;
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
                 window.open(twitterUrl, '_blank', 'width=550,height=420');
             }
 
             function shareToLinkedIn(text, categoryName) {
-                const url = window.location.href;
+                const cleanText = stripMarkdown(text);
+                const url = 'https://malama-climate-tech.vercel.app/';
+                const summary = `${cleanText}\n\nBuild Your Own Climate Startup at ${url}`;
                 const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
                 window.open(linkedInUrl, '_blank', 'width=550,height=420');
             }
 
             function copyToClipboard(text, categoryName) {
-                const fullText = `${text}\n\nExplore ${categoryName} and 89 other climate technologies at Mālama Labs Climate Tech Index: ${window.location.href}\n\nFollow @malamalabs for more climate tech insights.`;
+                const cleanText = stripMarkdown(text);
+                const url = 'https://malama-climate-tech.vercel.app/';
+                const fullText = `${cleanText}\n\nBuild Your Own Climate Startup at ${url}\n\nFollow @malamalabs for more climate tech insights.`;
                 navigator.clipboard.writeText(fullText).then(() => {
                     alert('✓ Copied to clipboard! Share it anywhere.');
                 }).catch(err => {
