@@ -45,12 +45,13 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         .max-w-container {
             max-width: 1348px;
             margin: 0 auto;
-            padding: 4rem 1.25rem 10.75rem;
+            padding: 2.5rem 2.5rem 0;
         }
 
         @media (min-width: 1024px) {
@@ -282,8 +283,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            min-height: 0;
-            /* Allows flex child to shrink below content size */
+            max-height: 350px;
         }
 
         .agent-body>* {
@@ -1450,7 +1450,7 @@
 
         <!-- Footer -->
         <footer
-            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 4rem 2rem 2rem; margin-top: auto;">
+            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 4rem 2rem 2rem; width: 100%; margin: 0;">
             <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
                 <div style="margin-bottom: 2rem;">
                     <a href="https://malamalabs.com" target="_blank" rel="noopener noreferrer">
