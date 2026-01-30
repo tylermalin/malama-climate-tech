@@ -16,6 +16,14 @@ if (!fs.existsSync('dist')) {
 }
 
 fs.writeFileSync('dist/index.html', output);
-fs.copyFileSync('malama_logo.png', 'dist/malama_logo.png');
+console.log('✓ Wrote dist/index.html');
+
+// Copy logo
+if (fs.existsSync('malama_logo.png')) {
+  fs.copyFileSync('malama_logo.png', 'dist/malama_logo.png');
+  console.log('✓ Copied malama_logo.png to dist/');
+} else {
+  console.error('✗ ERROR: malama_logo.png not found in source!');
+}
 
 console.log('Build complete! API key injected.');
