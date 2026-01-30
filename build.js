@@ -34,4 +34,12 @@ if (fs.existsSync('hero_bg.png')) {
   console.error('✗ ERROR: hero_bg.png not found in source!');
 }
 
+// Copy text logo
+if (fs.existsSync('malama_text_logo.png')) {
+  fs.copyFileSync('malama_text_logo.png', 'dist/malama_text_logo.png');
+  console.log('✓ Copied malama_text_logo.png to dist/');
+} else {
+  console.error('✗ ERROR: malama_text_logo.png not found in source!');
+}
+
 console.log('Build complete! API key injected.');
