@@ -927,6 +927,9 @@
                     throw new Error("Google Generative AI SDK not loaded yet.");
                 }
 
+                // Record this request time for rate limiting
+                lastRequestTime = Date.now();
+
                 const genAI = new window.GoogleGenerativeAI(apiKey);
                 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
@@ -990,9 +993,23 @@
 
 
         // Default for demo purposes (User provided)
-        const DEFAULT_API_KEY = "AIzaSyDtWqJMjEYVfYD9G_3XXVBnLCmXKANgQfM";
+        const DEFAULT_API_KEY = "";
+
+        // Rate limiting: Track last request time
+        let lastRequestTime = 0;
+        const REQUEST_COOLDOWN_MS = 5000; // 5 seconds between requests
 
         function triggerAgent(categoryName, intent) {
+            // Check rate limit
+            const now = Date.now();
+            const timeSinceLastRequest = now - lastRequestTime;
+
+            if (timeSinceLastRequest < REQUEST_COOLDOWN_MS) {
+                const remainingSeconds = Math.ceil((REQUEST_COOLDOWN_MS - timeSinceLastRequest) / 1000);
+                alert(`⏱️ Please wait ${remainingSeconds} more second(s) before making another request.`);
+                return;
+            }
+
             agentModal.style.display = 'flex';
 
             // Try local storage, then fallback to default
