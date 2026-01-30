@@ -25,6 +25,9 @@
             background-color: #f8fafc;
             color: var(--sns-black);
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .max-w-container {
@@ -274,8 +277,8 @@
             background: #f1f5f9;
             padding: 0.75rem 1rem;
             border-radius: 12px;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.6;
             max-width: 90%;
         }
 
@@ -288,6 +291,9 @@
         .agent-footer {
             padding: 1rem;
             border-top: 1px solid var(--sns-grey-7);
+            background: white;
+            display: flex;
+            gap: 0.5rem;
         }
 
         .agent-reply-input {
@@ -815,7 +821,10 @@
                     <!-- Dynamic Content -->
                 </div>
                 <div class="agent-footer">
-                    <input type="text" placeholder="Reply..." class="agent-reply-input">
+                    <input type="text" id="agent-reply-input" placeholder="Ask a follow-up question..."
+                        class="agent-reply-input" onkeypress="if(event.key==='Enter') sendFollowUp()">
+                    <button onclick="sendFollowUp()"
+                        style="background: var(--sns-blue-1); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; white-space: nowrap;">Send</button>
                 </div>
             </div>
         </div>
@@ -1000,6 +1009,30 @@
 
             function closeAgentModal() {
                 if (agentModal) agentModal.style.display = 'none';
+            }
+
+            function sendFollowUp() {
+                const input = document.getElementById('agent-reply-input');
+                const question = input.value.trim();
+
+                if (!question) return;
+
+                // Show user message
+                renderUserMessage(question);
+
+                // Clear input
+                input.value = '';
+
+                // Get API key
+                let apiKey = localStorage.getItem('gemini_api_key');
+                if (!apiKey) {
+                    apiKey = DEFAULT_API_KEY;
+                }
+
+                // Call API with follow-up question
+                const categoryName = window.currentCategoryName || 'Climate Tech';
+                const prompt = `You are an expert on climate tech. Answer this follow-up question about ${categoryName}: ${question}. Keep it concise (under 150 words).`;
+                callGemini(prompt, apiKey);
             }
 
             function saveApiKeyAndRetry(categoryName, intent) {
@@ -1387,7 +1420,7 @@
 
         <!-- Footer -->
         <footer
-            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 4rem 2rem 2rem; margin-top: 6rem;">
+            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 4rem 2rem 2rem; margin-top: auto;">
             <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
                 <div style="margin-bottom: 2rem;">
                     <a href="https://malamalabs.com" target="_blank" rel="noopener noreferrer">
