@@ -1014,12 +1014,21 @@
 
             agentModal.style.display = 'flex';
 
+            // Update modal title based on intent
+            const modalTitle = document.querySelector('.agent-title');
+            if (intent === 'deep-dive') {
+                modalTitle.innerHTML = '<span class="agent-avatar">M</span> Mālama Agent';
+            } else if (intent === 'idea-gen') {
+                modalTitle.innerHTML = '<span class="agent-avatar">🌍</span> Save the World';
+            }
+
+            // Clear previous content
+            agentResponseArea.innerHTML = '';
+
             // Try local storage, then fallback to default
             let apiKey = localStorage.getItem('gemini_api_key');
             if (!apiKey) {
                 apiKey = DEFAULT_API_KEY;
-                // Auto-save the default to LS for consistency, or just use it.
-                // Let's just use it.
             }
 
             // If still no key (shouldn't happen with default), prompt
