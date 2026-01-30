@@ -262,7 +262,8 @@
             overflow-y: auto;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            /* Remove flex display - use block for proper scrolling */
+            height: 0;
+            /* Critical: allows flex child to shrink and scroll */
         }
 
         .agent-body>* {
@@ -1390,8 +1391,8 @@
             <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
                 <div style="margin-bottom: 2rem;">
                     <a href="https://malamalabs.com" target="_blank" rel="noopener noreferrer">
-                        <img src="https://raw.githubusercontent.com/tylermalin/malama-climate-tech/main/malama_logo.png"
-                            alt="Mālama Labs" style="height: 80px; width: auto; margin: 0 auto;">
+                        <img src="malama_text_logo.png" alt="Mālama Labs"
+                            style="height: 60px; width: auto; margin: 0 auto; opacity: 0.9;">
                     </a>
                 </div>
 
