@@ -8,11 +8,11 @@
 
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://malama-climate-tech.vercel.app/">
+    <meta property="og:url" content="https://climatetools.xyz/">
     <meta property="og:title" content="Build Your Own Climate Startup | Mālama Labs">
     <meta property="og:description"
         content="Explore 90 climate technologies with AI-powered insights. From lab breakthroughs to commercial deployment across energy, carbon removal, and more.">
-    <meta property="og:image" content="https://malama-climate-tech.vercel.app/og_image.png">
+    <meta property="og:image" content="https://climatetools.xyz/og_image.png">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -20,7 +20,7 @@
     <meta name="twitter:title" content="Build Your Own Climate Startup | Mālama Labs">
     <meta name="twitter:description"
         content="Explore 90 climate technologies with AI-powered insights. From lab breakthroughs to commercial deployment.">
-    <meta name="twitter:image" content="https://malama-climate-tech.vercel.app/og_image.png">
+    <meta name="twitter:image" content="https://climatetools.xyz/og_image.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -1166,7 +1166,7 @@
 
             function shareToTwitter(text, categoryName) {
                 const cleanText = stripMarkdown(text);
-                const url = 'https://malama-climate-tech.vercel.app/';
+                const url = 'https://climatetools.xyz/';
                 const tweetText = `${cleanText}\n\nBuild Your Own Climate Startup at ${url}\n\n@malamalabs`;
                 const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
                 window.open(twitterUrl, '_blank', 'width=550,height=420');
@@ -1174,14 +1174,14 @@
 
             function shareToLinkedIn(text, categoryName) {
                 // LinkedIn will automatically pull OG image and description from meta tags
-                const url = 'https://malama-climate-tech.vercel.app/';
+                const url = 'https://climatetools.xyz/';
                 const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
                 window.open(linkedInUrl, '_blank', 'width=550,height=520');
             }
 
             function copyToClipboard(text, categoryName) {
                 const cleanText = stripMarkdown(text);
-                const url = 'https://malama-climate-tech.vercel.app/';
+                const url = 'https://climatetools.xyz/';
                 const fullText = `${cleanText}\n\nBuild Your Own Climate Startup at ${url}\n\nFollow @malamalabs for more climate tech insights.`;
                 navigator.clipboard.writeText(fullText).then(() => {
                     alert('✓ Copied to clipboard! Share it anywhere.');
