@@ -1,0 +1,15 @@
+{
+    "name": "malama-climate-tech",
+    "version": "1.0.0",
+    "description": "Mālama Labs climate technology database with AI agent",
+    "scripts": {
+        "build": "node build.js"
+    },
+    "keywords": [
+        "climate",
+        "ai",
+        "gemini"
+    ],
+    "author": "Mālama Labs",
+    "license": "MIT"
+}
