@@ -972,8 +972,8 @@
                 // Handle rate limiting (429)
                 if (errMsg.includes("429") || errMsg.includes("Resource exhausted") || errMsg.includes("quota")) {
                     errDiv.innerHTML = `<strong>⏱️ Rate Limit Reached</strong><br>
-                       You've hit the API quota limit. Please wait 1-2 minutes and try again.<br>
-                       <br><small>The free tier allows ~15 requests per minute. Consider enabling billing in Google Cloud Console for higher limits.</small>`;
+                       The API is temporarily rate-limited. Please wait 30-60 seconds and try again.<br>
+                       <br><small>Even paid accounts have per-minute quotas. You can increase limits in <a href="https://console.cloud.google.com/apis/api/generativelanguage.googleapis.com/quotas" target="_blank">Google Cloud Console → Quotas</a>.</small>`;
                     errDiv.style.background = '#fff3cd';
                     errDiv.style.borderLeft = '4px solid #ffc107';
                 } else if (errMsg.includes("400") || errMsg.includes("401") || errMsg.includes("API key") || errMsg.includes("supported")) {
