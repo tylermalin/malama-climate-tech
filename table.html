@@ -1172,11 +1172,10 @@
             }
 
             function shareToLinkedIn(text, categoryName) {
-                const cleanText = stripMarkdown(text);
+                // LinkedIn will automatically pull OG image and description from meta tags
                 const url = 'https://malama-climate-tech.vercel.app/';
-                const summary = `${cleanText}\n\nBuild Your Own Climate Startup at ${url}`;
                 const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-                window.open(linkedInUrl, '_blank', 'width=550,height=420');
+                window.open(linkedInUrl, '_blank', 'width=550,height=520');
             }
 
             function copyToClipboard(text, categoryName) {
@@ -1450,7 +1449,7 @@
 
         <!-- Footer -->
         <footer
-            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 4rem 2rem 2rem; width: 100%; margin: 0;">
+            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 4rem 0 2rem; width: 100%; margin: 0;">
             <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
                 <div style="margin-bottom: 2rem;">
                     <a href="https://malamalabs.com" target="_blank" rel="noopener noreferrer">
