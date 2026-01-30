@@ -297,6 +297,38 @@
             outline: none;
         }
 
+        .share-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--sns-grey-7);
+        }
+
+        .share-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--sns-grey-7);
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            color: var(--sns-grey-1);
+        }
+
+        .share-btn:hover {
+            background: var(--bg-glass);
+            border-color: var(--sns-blue-1);
+        }
+
+        .share-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
         @media (min-width: 1024px) {
             .grid-header {
                 grid-template-columns: 1fr 1fr;
@@ -1024,6 +1056,10 @@
                         replyDiv.className = 'agent-msg';
                         replyDiv.innerHTML = formattedText;
                         agentResponseArea.appendChild(replyDiv);
+
+                        // Add share buttons to AI response
+                        const categoryName = window.currentCategoryName || 'Climate Tech';
+                        addShareButtons(replyDiv, text, categoryName);
                     } else {
                         const errDiv = document.createElement('div');
                         errDiv.className = 'agent-msg';
@@ -1063,6 +1099,59 @@
                     console.error("Gemini API Error:", error);
                     agentResponseArea.appendChild(errDiv);
                 }
+            }
+
+            // Social Sharing Functions
+            function shareToTwitter(text, categoryName) {
+                const url = window.location.href;
+                const tweetText = `${text}\n\nExplore ${categoryName} and 89 other climate technologies at Mālama Labs Climate Tech Index 🌍\n\n@malamalabs`;
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(url)}`;
+                window.open(twitterUrl, '_blank', 'width=550,height=420');
+            }
+
+            function shareToLinkedIn(text, categoryName) {
+                const url = window.location.href;
+                const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+                window.open(linkedInUrl, '_blank', 'width=550,height=420');
+            }
+
+            function copyToClipboard(text, categoryName) {
+                const fullText = `${text}\n\nExplore ${categoryName} and 89 other climate technologies at Mālama Labs Climate Tech Index: ${window.location.href}\n\nFollow @malamalabs for more climate tech insights.`;
+                navigator.clipboard.writeText(fullText).then(() => {
+                    alert('✓ Copied to clipboard! Share it anywhere.');
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    alert('Failed to copy to clipboard');
+                });
+            }
+
+            function addShareButtons(messageElement, text, categoryName) {
+                const shareContainer = document.createElement('div');
+                shareContainer.className = 'share-buttons';
+                shareContainer.innerHTML = `
+                    <button class="share-btn" onclick="shareToTwitter(\`${text.replace(/`/g, '\\`')}\`, '${categoryName}')">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                        </svg>
+                        Share on X
+                    </button>
+                    <button class="share-btn" onclick="shareToLinkedIn(\`${text.replace(/`/g, '\\`')}\`, '${categoryName}')">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect width="4" height="12" x="2" y="9"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                        Share on LinkedIn
+                    </button>
+                    <button class="share-btn" onclick="copyToClipboard(\`${text.replace(/`/g, '\\`')}\`, '${categoryName}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        Copy to Share
+                    </button>
+                `;
+                messageElement.appendChild(shareContainer);
             }
 
 
@@ -1110,6 +1199,9 @@
                 }
 
                 console.log(`Triggering Agent: ${intent} for ${categoryName}`);
+
+                // Store category name for share buttons
+                window.currentCategoryName = categoryName;
 
                 let prompt = "";
                 let userMsg = "";
