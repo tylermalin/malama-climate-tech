@@ -265,8 +265,8 @@
             overflow-y: auto;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            height: 0;
-            /* Critical: allows flex child to shrink and scroll */
+            min-height: 0;
+            /* Allows flex child to shrink below content size */
         }
 
         .agent-body>* {
